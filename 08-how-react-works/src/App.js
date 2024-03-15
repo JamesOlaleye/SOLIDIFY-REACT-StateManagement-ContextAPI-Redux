@@ -85,6 +85,10 @@ function TabContent({ item }) {
     setLikes(0);
   }
 
+  function handleUndoLater() {
+    setTimeout(handleUndo, 2000);
+  }
+
   return (
     <div className='tab-content'>
       <h4>{item.summary}</h4>
@@ -104,7 +108,7 @@ function TabContent({ item }) {
 
       <div className='tab-undo'>
         <button onClick={handleUndo}>Undo</button>
-        <button>Undo in 2s</button>
+        <button onClick={handleUndoLater}>Undo in 2s</button>
       </div>
     </div>
   );
