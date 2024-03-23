@@ -98,12 +98,15 @@ export default function App() {
 
   useEffect(
     function () {
+      const controller = new AbortController(); // this is browser API,has noting to do with React
+
       async function fetchMovies() {
         try {
           setIsLoading(true);
           setError("");
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+            { signal: controller.signal }
           );
 
           if (!res.ok)
@@ -129,6 +132,10 @@ export default function App() {
       }
 
       fetchMovies(false);
+
+      return function () {
+        controller.abort();
+      };
     },
     [query]
   );
